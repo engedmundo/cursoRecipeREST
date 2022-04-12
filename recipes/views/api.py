@@ -24,9 +24,10 @@ class RecipeAPIv2ViewSet(ModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
+        category_id = self.request.query_params.get('category_id', '')
 
-        print('Parâmetros', self.kwargs)
-        print('Query Strings', self.request.query_params)
+        if category_id is not '' and category_id.isnumeric():
+            qs = qs.filter(category_id=category_id)
         return qs
 
 
